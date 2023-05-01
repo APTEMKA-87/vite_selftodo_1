@@ -1,33 +1,47 @@
 import './App.css'
 import Todolist from "./Todolist";
-import {v1} from "uuid";
 import {useState} from "react";
+
+
+type SexType = 'man' | 'woman'
+
+export type PioplesType = {
+    name: string
+    age: number
+    sex: SexType
+}
 
 function App() {
 
+    const pioples: PioplesType[] = [
+        {name: 'Bob', age: 20, sex: 'man'},
+        {name: 'Jim', age: 30, sex: 'man'},
+        {name: 'Jo', age: 40, sex: 'man'},
+        {name: 'Marta', age: 20, sex: 'woman'},
+        {name: 'Lisa', age: 30, sex: 'woman'},
+        {name: 'Anna', age: 40, sex: 'woman'},
+        {name: 'Helen', age: 50, sex: 'woman'},
+    ]
 
-    const [tasks, SetTasks] = useState([
-        {id: v1(), title: 'CSS', isDone: true},
-        {id: v1(), title: 'HTML', isDone: true},
-        {id: v1(), title: 'Java', isDone: false}
-    ])
+    const [filter, setFilter] = useState('')
 
-    const addTask = () => {
-        console.log('din')
+    let filteredPioples = pioples
+
+    if (filter === 'Man') {
+        filteredPioples = pioples.filter(p => p.sex === 'man')
     }
 
-    const removeTask = () => {
-        console.log('don')
+    const sexFilter = (value: string) => {
+        setFilter(value)
     }
 
     return (
-        <>
+        <div className='App'>
             <Todolist
-                tasks={tasks}
-                addTask={addTask}
-                removeTask={removeTask}
+                pioples={filteredPioples}
+                sexFilter={sexFilter}
             />
-        </>
+        </div>
     )
 }
 

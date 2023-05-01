@@ -1,49 +1,28 @@
-
-export type TasksType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+import {PioplesType} from "./App";
 
 type PropsType = {
-    tasks: TasksType[]
-    addTask: () => void
-    removeTask: () => void
+    pioples: PioplesType[]
+    sexFilter: (value: string) => void
 }
 
 const Todolist = (props: PropsType) => {
-
-    const addTaskHandler = () => {
-        props.addTask()
-    }
-
-    const removeTaskHandler = () => {
-        props.removeTask()
-    }
-
     return (
-        <>
-            <div>
-                <input/>
-                <button onClick={addTaskHandler}>Add Task</button>
-            </div>
-            <div>
-                <ul>
-                    {props.tasks.map(el => <li>
-                        <input type="checkbox"
-                               checked={el.isDone}/>
-                        <span>
-                            {el.title}
-                        </span>
-                        <button
-                            onClick={removeTaskHandler}
-                        >Х
-                        </button>
-                    </li>)
-                    }
+        <div>
+
+            {props.pioples.map(p => {
+                return <ul>
+                    <li>{p.name}</li>
+                    <li>{p.age}</li>
+                    <li>{p.sex}</li>
                 </ul>
-            </div>
-        </>
+            })}
+
+            <button onClick={() => {props.sexFilter('Man')
+            }}>Man
+            </button>
+            <button>Woman</button>
+            <button>Older 30</button>
+        </div>
     );
 };
 
