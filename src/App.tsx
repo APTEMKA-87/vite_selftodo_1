@@ -20,7 +20,6 @@ function App() {
         const task = {id: v1(), title, isDone: false}
         const newTask = [task, ...tasks]
         setTasks(newTask)
-        console.log('addTask')
     }
 
     function removeTask(id: string) {
