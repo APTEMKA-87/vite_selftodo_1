@@ -1,29 +1,30 @@
-import {PioplesType} from "./App";
-
-type PropsType = {
-    pioples: PioplesType[]
-    sexFilter: (value: string) => void
+type TaskType = {
+    id: number
+    title: string
+    isDone: boolean
 }
 
-const Todolist = (props: PropsType) => {
-    return (
+type PropsType = {
+    title: string
+    tasks: Array<TaskType>
+}
+
+export function Todolist(props: PropsType) {
+    return <div>
+        <h3>{props.title}</h3>
         <div>
-
-            {props.pioples.map(p => {
-                return <ul>
-                    <li>{p.name}</li>
-                    <li>{p.age}</li>
-                    <li>{p.sex}</li>
-                </ul>
-            })}
-
-            <button onClick={() => {props.sexFilter('Man')
-            }}>Man
-            </button>
-            <button>Woman</button>
-            <button>Older 30</button>
+            <input/>
+            <button>+</button>
         </div>
-    );
-};
-
-export default Todolist;
+        <ul>
+            <li><input type="checkbox" checked={props.tasks[0].isDone}/> <span>{props.tasks[0].title}</span></li>
+            <li><input type="checkbox" checked={props.tasks[1].isDone}/> <span>{props.tasks[1].title}</span></li>
+            <li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span></li>
+        </ul>
+        <div>
+            <button>All</button>
+            <button>Active</button>
+            <button>Completed</button>
+        </div>
+    </div>
+}

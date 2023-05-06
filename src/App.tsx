@@ -1,46 +1,25 @@
 import './App.css'
-import Todolist from "./Todolist";
-import {useState} from "react";
+import {Todolist} from "./Todolist";
 
-
-type SexType = 'man' | 'woman'
-
-export type PioplesType = {
-    name: string
-    age: number
-    sex: SexType
-}
 
 function App() {
 
-    const pioples: PioplesType[] = [
-        {name: 'Bob', age: 20, sex: 'man'},
-        {name: 'Jim', age: 30, sex: 'man'},
-        {name: 'Jo', age: 40, sex: 'man'},
-        {name: 'Marta', age: 20, sex: 'woman'},
-        {name: 'Lisa', age: 30, sex: 'woman'},
-        {name: 'Anna', age: 40, sex: 'woman'},
-        {name: 'Helen', age: 50, sex: 'woman'},
+    const tasks1 = [
+        { id: 1, title: "HTML&CSS", isDone: true },
+        { id: 2, title: "JS", isDone: true },
+        { id: 3, title: "ReactJS", isDone: false }
+    ]
+    const tasks2 = [
+        { id: 1, title: "Hello world", isDone: true },
+        { id: 2, title: "I am Happy", isDone: false },
+        { id: 3, title: "Yo", isDone: false }
     ]
 
-    const [filter, setFilter] = useState('')
-
-    let filteredPioples = pioples
-
-    if (filter === 'Man') {
-        filteredPioples = pioples.filter(p => p.sex === 'man')
-    }
-
-    const sexFilter = (value: string) => {
-        setFilter(value)
-    }
 
     return (
         <div className='App'>
-            <Todolist
-                pioples={filteredPioples}
-                sexFilter={sexFilter}
-            />
+            <Todolist title="What to learn" tasks={tasks1} />
+            <Todolist title="Songs" tasks={tasks2} />
         </div>
     )
 }
