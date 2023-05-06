@@ -1,5 +1,6 @@
 import {FilterValuesType} from './App';
 import {ChangeEvent, useState} from "react";
+import style from './App.css'
 
 type TaskType = {
     id: string
@@ -20,12 +21,19 @@ export function Todolist(props: PropsType) {
 
     const [title, setTitle] = useState<string>('')
 
+    const [error, setError] = useState<string | null>(null)
+
     const addTaskHandler = () => {
-        props.addTask(title)
-        setTitle('')
+        if (title.trim() !== '') {
+            props.addTask(title)
+            setTitle('')
+        } else {
+            setError('Введите таску')
+        }
     }
 
     const onKeyDownHandler = (event) => {
+        setError(null)
         if (event.key === 'Enter') {
             addTaskHandler()
         }
@@ -56,6 +64,7 @@ export function Todolist(props: PropsType) {
             />
             <button onClick={addTaskHandler}>+
             </button>
+            {error && <div className={style.errorMessage}>{error}</div>}
         </div>
         <ul>
             {
