@@ -2,7 +2,7 @@ import {FilterValuesType} from './App';
 import {ChangeEvent, useState} from "react";
 import style from './App.css'
 
-type TaskType = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
@@ -11,7 +11,7 @@ type TaskType = {
 type PropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
+    removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
     addTask: (title: string) => void
     changeTaskStatus: (id: string, isDone: boolean) => void
@@ -73,7 +73,7 @@ export function Todolist(props: PropsType) {
                 props.tasks.map(t => {
 
                     const onClickHandler = () => {
-                        props.removeTask(t.id)
+                        props.removeTask(props.todolistId, t.id)
                     }
 
                     const onChangeStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
