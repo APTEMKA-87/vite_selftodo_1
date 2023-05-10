@@ -30,7 +30,6 @@ function App() {
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
             {id: v1(), title: 'ReactJS', isDone: false},
-
         ],
         [todolistID2]: [
             {id: v1(), title: 'Rest API', isDone: true},
@@ -38,17 +37,23 @@ function App() {
         ]
     })
 
-    /*const addTask = (title: string) => {
-        const task = {id: v1(), title, isDone: false}
-        const newTask = [task, ...tasks]
-        setTasks(newTask)
-    }*/
-
     function removeTask(todolistId: string, id: string) {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].filter(el => el.id !== id)})
+        setTasks({
+            ...tasks,
+            [todolistId]: tasks[todolistId].filter(el => el.id !== id)
+        })
+    }
 
-        //const filteredTasks = tasks.filter(t => t.id != id);
-        //setTasks(filteredTasks);
+    function changeFilter(todolistId: string, value: FilterValuesType) {
+        setTodolists(todolists.map(el => el.id === todolistId ? {
+            ...el,
+            filter: value // присваеваем новый ключ
+        } : el))
+    }
+
+    const addTask = (todolistId: string, title: string) => {
+        const newTask = {id: v1(), title, isDone: false}
+        setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
     }
 
     /*const changeTaskStatus = (id: string, isDone: boolean) => {
@@ -58,13 +63,6 @@ function App() {
             setTasks([...tasks])
         }
     }*/
-
-    function changeFilter(todolistId: string, value: FilterValuesType) {
-        setTodolists(todolists.map(el => el.id === todolistId ? {
-            ...el,
-            filter: value // присваеваем новый ключ
-        } : el))
-    }
 
     return (
         <div className="App">
@@ -84,8 +82,8 @@ function App() {
                     tasks={tasksForTodolist}
                     removeTask={removeTask}
                     changeFilter={changeFilter}
-                   // addTask={addTask}
-                   // changeTaskStatus={changeTaskStatus}
+                    addTask={addTask}
+                    // changeTaskStatus={changeTaskStatus}
                     filter={todolist.filter}
                 />
             })}
