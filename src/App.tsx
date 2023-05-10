@@ -56,13 +56,15 @@ function App() {
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
     }
 
-    /*const changeTaskStatus = (id: string, isDone: boolean) => {
-        const task = tasks.find(t => t.id === id)
-        if (task) {
-            task.isDone = isDone
-            setTasks([...tasks])
-        }
-    }*/
+    const changeTaskStatus = (todolistId: string, id: string, isDone: boolean) => {
+        setTasks({
+            ...tasks,
+            [todolistId]: tasks[todolistId].map(el => el.id === id ? {
+                ...el,
+                isDone
+            } : el)
+        })
+    }
 
     return (
         <div className="App">
@@ -83,7 +85,7 @@ function App() {
                     removeTask={removeTask}
                     changeFilter={changeFilter}
                     addTask={addTask}
-                    // changeTaskStatus={changeTaskStatus}
+                    changeTaskStatus={changeTaskStatus}
                     filter={todolist.filter}
                 />
             })}
